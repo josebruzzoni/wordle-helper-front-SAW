@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { TextField, Button, Stack } from "@mui/material";
+import "./styles.css";
+import { ThemeProvider } from '@mui/material/styles';
+import customTheme from "./theme";
+import { ReactComponent as Logo } from "./Wordle Helper logo-03.svg"
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ThemeProvider theme={customTheme}>
+      <Stack className="stack">
+        <Logo />
+        <form className="form">
+          <TextField variant="standard" label="Username" />
+          <TextField variant="standard" type="password" label="Password" />
+          <Button variant="contained" color="primary" className="loginButton">Log in</Button>
+        </form>
+      </Stack>
+    </ThemeProvider>
+  )
 }
 
 export default App;

@@ -1,0 +1,27 @@
+body {
+    background: #ffffff;
+}
+
+.form {
+    max-width: 330px;
+    display: flex;
+    flex-direction: column;
+    background: #f3f1f1;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.stack {
+    max-width: 330px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.form .loginButton {
+    margin-top: 50px;
+    color: #ffffff;
+}
