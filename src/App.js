@@ -2,6 +2,7 @@ import { TextField, Button, Stack } from "@mui/material";
 import "./styles.css";
 import { ThemeProvider } from '@mui/material/styles';
 import customTheme from "./theme";
+import HelperGrid from "./HelperGrid";
 import { ReactComponent as Logo } from "./Wordle Helper logo-03.svg"
 
 const App = () => {
@@ -16,6 +17,9 @@ const App = () => {
         </form>
       </Stack>
     </ThemeProvider>
+    /*<HelperGrid>
+      
+    </HelperGrid>*/
   )
 }
 
