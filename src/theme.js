@@ -11,6 +11,9 @@ const customTheme = createTheme({
       neutral: {
         main: '#787c7e',
       },
+      white: {
+        main: '#ffffff',
+      },
     },
   });
 
