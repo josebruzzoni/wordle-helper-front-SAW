@@ -4,9 +4,13 @@ import { IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import logo from "./Wordle Helper logo-03.svg"
+import logoutService from "./services/auth"
+import { useNavigate } from "react-router-dom"
 
 const Appbar = () => {
     const [anchorEl, setAnchorEl] = useState(null)
+
+    const navigate = useNavigate()
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -15,6 +19,11 @@ const Appbar = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const handleLogout = () => {
+        logoutService.logout()
+        navigate("/login")
+    }
 
     return (
         <div>
@@ -57,8 +66,7 @@ const Appbar = () => {
                         open={Boolean(anchorEl)}
                         onClose={handleClose}
                     >
-                        <MenuItem onClick={handleClose}>Profile</MenuItem>
-                        <MenuItem onClick={handleClose}>My account</MenuItem>
+                        <MenuItem onClick={handleLogout}>Log out</MenuItem>
                     </Menu>
                 </Toolbar>
             </AppBar>

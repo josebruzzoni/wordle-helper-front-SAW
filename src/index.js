@@ -4,22 +4,24 @@ import {
     BrowserRouter,
     Routes,
     Route,
+    Navigate,
   } from "react-router-dom";
 import Login from './Login';
 import Dictionary from './Dictionary';
 import Signup from './Signup';
-import App from './App';
 import { ThemeProvider } from '@mui/material/styles';
 import customTheme from "./theme";
+import PrivateRoute from "./PrivateRoute"
+import PublicRoute from "./PublicRoute"
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <ThemeProvider theme={customTheme}>
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<App />} />
-                <Route path="/dictionary" element={<Dictionary />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
+                <Route path="/" element={<Navigate to="/login" />} />
+                <Route path="/dictionary" element={<PrivateRoute><Dictionary /></PrivateRoute>} />
+                <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+                <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
             </Routes>
         </BrowserRouter>
     </ThemeProvider>
