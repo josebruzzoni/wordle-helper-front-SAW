@@ -8,6 +8,12 @@ const customTheme = createTheme({
       secondary: {
         main: '#c9b458',
       },
+      neutral: {
+        main: '#787c7e',
+      },
+      white: {
+        main: '#ffffff',
+      },
     },
   });
 
