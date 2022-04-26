@@ -3,6 +3,7 @@ import { Button, Fab, Stack, TextField, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import Appbar from "./Appbar";
 import searchService from "./services/search"
+import authService from "./services/auth"; 
 
 const Dictionary = () => {
     const [ word, setWord ] = useState("")
@@ -18,6 +19,7 @@ const Dictionary = () => {
             word: word,
             language: language,
         }
+        console.log(authService.getHeaders())
         searchService.search(searchObject).then(
             myWord => {
                 setErrorState(false)
@@ -25,6 +27,7 @@ const Dictionary = () => {
                 setDefinition(myWord.definition)
             }
           ).catch((error) => {
+            setSearchedWord(word)
             console.log(error)
             setErrorState(true)
           })

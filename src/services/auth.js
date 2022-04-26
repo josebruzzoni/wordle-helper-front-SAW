@@ -2,13 +2,11 @@ const isLoggedIn = () => {
     return sessionStorage.getItem("token") != null
 }
 
-const token = "Bearer " + sessionStorage.getItem("token")
-
-const headers = {
-    'Authorization': token
-}
-
 const getHeaders = () => {
+    const token = "Bearer " + sessionStorage.getItem("token")
+    const headers = {
+        'Authorization': token
+    }
     return headers
 }
 
