@@ -8,6 +8,7 @@ import authService from "./services/auth";
 const Dictionary = () => {
     const [ word, setWord ] = useState("")
     const [ searchedWord, setSearchedWord ] = useState("")
+    const [ noResultWord, setNoResultWord ] = useState("")
     const [ definition, setDefinition ] = useState("")
     const [ language, setLanguage ] = useState("EN")
     const [ errorState, setErrorState ] = useState(false)
@@ -23,11 +24,12 @@ const Dictionary = () => {
         searchService.search(searchObject).then(
             myWord => {
                 setErrorState(false)
+                setNoResultWord("")
                 setSearchedWord(myWord.name)
                 setDefinition(myWord.definition)
             }
           ).catch((error) => {
-            setSearchedWord(word)
+            setNoResultWord(word)
             console.log(error)
             setErrorState(true)
           })
@@ -62,7 +64,7 @@ const Dictionary = () => {
                     <Stack spacing={2}>
                         <Stack direction="row" spacing={2}>
                             <TextField id="outlined-search" label={"Search " + selectedLanguage() + " word"} value={ word } 
-                                onChange={ wordChange } required={true} error={ errorState } helperText={errorState ? "No results found for " + searchedWord : ""}/>
+                                onChange={ wordChange } required={true} error={ errorState } helperText={errorState ? "No results found for " + noResultWord : ""}/>
                             <Button variant="contained" color="primary" className="searchButton" type="submit">
                                 <SearchIcon color="#ffffff"/>
                             </Button>
@@ -77,7 +79,7 @@ const Dictionary = () => {
                         </Stack>
                         
                         <Typography variant="h4" textAlign={"left"}>
-                                {searchedWord}
+                            {searchedWord}
                         </Typography>
                         <Typography variant="body1" textAlign={"left"}>
                             {definition}
