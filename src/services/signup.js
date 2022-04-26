@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:8080/users'
+const baseUrl = 'http://localhost:8080/v1/users'
 
 const signup = newObject => {
     const request = axios.post(baseUrl, newObject)

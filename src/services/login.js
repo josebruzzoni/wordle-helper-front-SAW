@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:8080/sessions'
+const baseUrl = 'http://localhost:8080/v1/sessions'
 
 const login = newObject => {
   const request = axios.post(baseUrl, newObject)
