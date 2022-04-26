@@ -11,4 +11,8 @@ const search = newObject => {
     return request.then(response => response.data)
 }
 
-export default { search }
+const searchService = {
+    search,
+  }
+
+export default searchService

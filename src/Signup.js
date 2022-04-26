@@ -48,7 +48,7 @@ const Signup = () => {
   }
 
   return (
-    <Stack className="stack">
+    <Stack className="main-stack">
         <Logo />
         <form className="form" onSubmit={ handleSignup } >
             <TextField variant="standard" label="Username" onChange={ usernameChange } value={ username } 

@@ -18,4 +18,10 @@ const logout = () => {
     }
 }
 
-export default { isLoggedIn, getHeaders, logout }
+const loginService = {
+    isLoggedIn, 
+    getHeaders, 
+    logout,
+  }
+
+export default loginService

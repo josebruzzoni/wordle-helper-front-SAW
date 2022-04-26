@@ -7,4 +7,8 @@ const login = newObject => {
   return request.then(response => response.data.token)
 }
 
-export default { login }
+const loginService = {
+  login,
+}
+
+export default loginService

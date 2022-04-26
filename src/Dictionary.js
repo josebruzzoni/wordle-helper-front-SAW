@@ -51,7 +51,7 @@ const Dictionary = () => {
             <Appbar>
 
             </Appbar>
-            <Stack className="stack" >
+            <Stack className="main-stack" >
                 <Typography variant="h2" textAlign={"left"}>
                     Dictionary
                 </Typography>
@@ -65,10 +65,10 @@ const Dictionary = () => {
                             </Button>
                         </Stack>
                         <Stack direction="row" spacing={1}>
-                            <Fab variant="extended" color={language === "EN" ? "secondary.dark" : "secondary"} size="small" onClick={ handleLanguage } value="EN">
+                            <Fab variant="extended" color="secondary" size="small" onClick={ handleLanguage } value="EN">
                                 English
                             </Fab>
-                            <Fab variant="extended" color={language === "ES" ? "secondary.dark" : "secondary"} size="small" onClick={ handleLanguage } value="ES">
+                            <Fab variant="extended" color="secondary" size="small" onClick={ handleLanguage } value="ES">
                                 Spanish
                             </Fab>
                         </Stack>

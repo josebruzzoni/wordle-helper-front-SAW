@@ -7,4 +7,8 @@ const signup = newObject => {
     return request.then(response => response.data)
 }
 
-export default { signup }
+const signupService = {
+    signup,
+  }
+
+export default signupService

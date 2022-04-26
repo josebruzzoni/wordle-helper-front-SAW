@@ -37,7 +37,7 @@ const Login = () => {
   }
 
   return (
-    <Stack className="stack">
+    <Stack className="main-stack">
         <Logo />
         <form className="form" onSubmit={ handleLogin } >
             <TextField variant="standard" label="Username" onChange={ usernameChange } 

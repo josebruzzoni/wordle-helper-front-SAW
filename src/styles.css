@@ -11,7 +11,7 @@ body {
     margin-top: 30px;
 }
 
-.stack {
+.main-stack {
     max-width: 330px;
     margin: 0 auto;
     display: flex;
@@ -26,11 +26,11 @@ body {
     color: #ffffff;
 }
 
-.stack .submitButton {
+.main-stack .submitButton {
     margin-top: 50px;
     color: #ffffff;
 }
 
-.stack .searchButton {
+.main-stack .searchButton {
     color: #ffffff;
 }
