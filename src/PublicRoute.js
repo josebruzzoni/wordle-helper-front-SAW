@@ -11,7 +11,7 @@ const PublicRoute = (props) => {
     ) : (
       <Navigate
         replace={true}
-        to="/dictionary"
+        to="/home"
         state={{ from: `${location.pathname}${location.search}` }}
       />
     )

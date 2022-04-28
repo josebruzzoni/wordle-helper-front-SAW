@@ -21,7 +21,8 @@ const Login = () => {
     loginService.login(loginObject).then(
       token => {
         sessionStorage.setItem("token", token)
-        navigate("/dictionary")}
+        sessionStorage.setItem("username", username)
+        navigate("/home")}
     ).catch((error) => {
       console.log(error)
       setErrorState(true)
