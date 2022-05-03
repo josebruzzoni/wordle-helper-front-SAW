@@ -2,8 +2,9 @@ import { Box, Fab, List, ListItem, Stack, Typography } from "@mui/material"
 import tournamentsService from "./services/tournaments";
 import Appbar from "./Appbar"
 import { useEffect, useState } from "react";
-import Tournament from "./Tournament";
+import TournamentCard from "./TournamentCard";
 import AddIcon from '@mui/icons-material/Add';
+import { Outlet } from "react-router-dom";
 
 const PublicTournaments = () => {
     const [ tournaments, setTournaments ] = useState([])
@@ -27,7 +28,7 @@ const PublicTournaments = () => {
                     {console.log(tournaments)}
                     {tournaments.map(t =>
                         <ListItem key={t.id}>
-                            <Tournament tournament={t}></Tournament>
+                            <TournamentCard tournament={t}></TournamentCard>
                         </ListItem>
                     )}
                 </List>
@@ -38,6 +39,7 @@ const PublicTournaments = () => {
                 </Box>
                 
             </Stack>
+            <Outlet />
         </div>
 
     )

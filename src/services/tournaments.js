@@ -17,8 +17,25 @@ const addTournament = (newObject) => {
     return request.then(response => response.data)
 }
 
+const getTournament = (id) => {
+    const request = axios.get(baseUrl + "/" + id, {
+        headers: authService.getHeaders()
+    })
+    return request.then(response => response.data)
+}
+
+const getTournamentLeaderboard = (id) => {
+    const request = axios.get(baseUrl + "/" + id + "/leaderboard", {
+        headers: authService.getHeaders()
+    })
+    return request.then(response => response.data)
+}
+
 const tournamentsService = {
     getAllPublicTournaments,
+    getTournament,
+    addTournament,
+    getTournamentLeaderboard,
   }
 
 export default tournamentsService

@@ -1,65 +1,60 @@
-import { Card, CardActions, CardContent, CardHeader, Chip, Collapse, IconButton, Typography } from "@mui/material"
-import { useState } from "react";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import styled from "@emotion/styled";
-import EmojiEventsOutIcon from '@mui/icons-material/EmojiEventsOutlined';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import { useParams } from "react-router-dom"
+import Appbar from "./Appbar"
+import TournamentCard from "./TournamentCard"
+import tournamentsService from "./services/tournaments";
+import { useEffect, useState } from "react";
+import { DataGrid } from '@mui/x-data-grid';
+import { Stack, Typography } from "@mui/material";
 
-const Tournament = ({ tournament }) => {
-    const [ expanded, setExpanded ] = useState(false)
-    const [ joined, setJoined ] = useState(false)
-
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-      }
-
-    const handleJoinClick = () => {
-        setJoined(!joined);
-      }
+const Tournament = () => {
+    const [ tournament, setTournament ] = useState(null)
+    const [ leaderboard, setLeaderboard ] = useState([])
+    const params = useParams()
+    useEffect(() => {
+        tournamentsService
+            .getTournament(params.tournamentId)
+            .then(response => {
+                setTournament(response)
+            })
+        tournamentsService
+            .getTournamentLeaderboard(params.tournamentId)
+            .then(response => {
+                setLeaderboard(response.leaderboard)
+                console.log(response.leaderboard)
+            })
+    }, [])
 
     return (
-        <Card sx={{ minWidth: 660 }}>
-        <CardHeader
-          action={
-            <IconButton aria-label="join" color="primary" onClick={handleJoinClick}>
-              {joined ? <EmojiEventsIcon /> : <EmojiEventsOutIcon />}
-            </IconButton>
-          }
-          title={tournament.name}
-          subheader={tournament.startDate + " to " + tournament.endDate}
-        />
-        <CardActions>
-            {tournament.languages.map(l =>
-                <Chip key={l} label={ l === "EN" ? "English" : "Español"} />
-            )}
-          <ExpandMore
-            expand={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </ExpandMore>
-        </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Typography>Owner: {tournament.owner}</Typography>
-            <Typography>Participants: {tournament.participants.map(p => p)}</Typography>
-          </CardContent>
-        </Collapse>
-      </Card>
+        <div>
+            <Appbar />
+            <Stack className="main-stack" spacing={2} sx={{ maxWidth: 660, textAlign: "left" }}>
+                <Typography variant="h3" textAlign={"center"}>
+                    Leaderboard
+                </Typography>
+                {tournament ? <TournamentCard tournament={tournament}></TournamentCard> : <div />}
+                <div style={{ height: 400, width: "100%", background: "#ffffff"}}>
+                    <DataGrid rows={leaderboard.map((u, i) => (
+                        {
+                            id: i + 1,
+                            userName: u.user.username,
+                            score: u.badScore
+                        }
+                    ))} columns={columns}/>
+                </div>
+            </Stack>
+
+        </div>
     )
 }
 
-const ExpandMore = styled((props) => {
-    const { expand, ...other } = props;
-    return <IconButton {...other} />;
-  })(({ theme, expand }) => ({
-    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  }));
+const columns = [
+    { field: 'id', headerName: 'Position', width: 70 },
+    { field: 'userName', headerName: 'Player', width: 230 },
+    {
+      field: 'score',
+      headerName: 'Score',
+      width: 260
+    },
+  ];
 
-  export default Tournament
+export default Tournament
