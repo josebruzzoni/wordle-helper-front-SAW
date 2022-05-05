@@ -16,6 +16,7 @@ import PublicRoute from "./PublicRoute"
 import Home from './Home';
 import PublicTournaments from './PublicTournaments';
 import Tournament from './Tournament';
+import CreateTournament from './CreateTournament';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <ThemeProvider theme={customTheme}>
@@ -27,6 +28,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 <Route path="/public-tournaments" element={<PrivateRoute><PublicTournaments /></PrivateRoute>} />
                 <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
                 <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
+                <Route path="/create-tournament" element={<PrivateRoute><CreateTournament /></PrivateRoute>} />
                 <Route path="/public-tournaments/:tournamentId" element={<PrivateRoute><Tournament /></PrivateRoute>} />
             </Routes>
         </BrowserRouter>

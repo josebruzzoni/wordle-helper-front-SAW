@@ -8,6 +8,7 @@ import MenuBookIcon from '@mui/icons-material/MenuBookOutlined';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import CreateIcon from '@mui/icons-material/Create';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
+import AddIcon from '@mui/icons-material/Add';
 import EmojiEventsFilledIcon from '@mui/icons-material/EmojiEvents';
 import logo from "./Wordle Helper logo-03.svg"
 import logoutService from "./services/auth"
@@ -99,6 +100,12 @@ const Appbar = () => {
                                                 <EmojiEventsFilledIcon color="primary" />
                                             </ListItemIcon>
                                             <ListItemText primary="Public tournaments" />
+                                        </ListItemButton>
+                                        <ListItemButton sx={{ pl: 4 }} onClick={() => handleMenuButton("/create-tournament")}>
+                                            <ListItemIcon>
+                                                <AddIcon color="primary" />
+                                            </ListItemIcon>
+                                            <ListItemText primary="Create tournament" />
                                         </ListItemButton>
                                         <ListItemButton sx={{ pl: 4 }}>
                                             <ListItemIcon>

@@ -24,6 +24,16 @@ const getTournament = (id) => {
     return request.then(response => response.data)
 }
 
+const joinTournament = (id) => {
+    const participant = {
+        participantName: sessionStorage.getItem("username"),
+    }
+    const request = axios.post(baseUrl + "/" + id + "/participants", participant, {
+        headers: authService.getHeaders()
+    })
+    return request.then(response => response.data)
+}
+
 const getTournamentLeaderboard = (id) => {
     const request = axios.get(baseUrl + "/" + id + "/leaderboard", {
         headers: authService.getHeaders()
@@ -36,6 +46,7 @@ const tournamentsService = {
     getTournament,
     addTournament,
     getTournamentLeaderboard,
+    joinTournament,
   }
 
 export default tournamentsService

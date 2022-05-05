@@ -107,6 +107,7 @@ const Home = () => {
                     >
                         <MenuItem onClick={handleClose}>My tournaments</MenuItem>
                         <MenuItem onClick={() => handleButton("/public-tournaments")}>Public tournaments</MenuItem>
+                        <MenuItem onClick={() => handleButton("/create-tournament")}>Create tournament</MenuItem>
                         <MenuItem onClick={handleClose}>Load results</MenuItem>
                     </Menu>
                 </Stack>

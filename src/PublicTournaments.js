@@ -4,7 +4,7 @@ import Appbar from "./Appbar"
 import { useEffect, useState } from "react";
 import TournamentCard from "./TournamentCard";
 import AddIcon from '@mui/icons-material/Add';
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const PublicTournaments = () => {
     const [ tournaments, setTournaments ] = useState([])
@@ -16,6 +16,13 @@ const PublicTournaments = () => {
                 setTournaments(response.tournaments)
             })
     }, [])
+
+    const navigate = useNavigate()
+
+    const handleAddButton = () => {
+        navigate("/create-tournament")
+    }
+
     return (
         <div>
             <Appbar>
@@ -33,7 +40,7 @@ const PublicTournaments = () => {
                     )}
                 </List>
                 <Box sx={{ justifyContent: "flex-end", alignItems: "flex-end", display: "flex" }}>
-                    <Fab color="primary" aria-label="add">
+                    <Fab color="primary" aria-label="add" onClick={handleAddButton}>
                         <AddIcon color="white"/>
                     </Fab>
                 </Box>

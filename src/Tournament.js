@@ -22,7 +22,7 @@ const Tournament = () => {
                 setLeaderboard(response.leaderboard)
                 console.log(response.leaderboard)
             })
-    }, [])
+    }, [params.tournamentId])
 
     return (
         <div>

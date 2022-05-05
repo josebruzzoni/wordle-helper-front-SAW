@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Fab, Stack, TextField, Typography } from '@mui/material';
+import { Backdrop, Button, CircularProgress, Fab, Stack, TextField, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import Appbar from "./Appbar";
 import searchService from "./services/search"
@@ -12,9 +12,11 @@ const Dictionary = () => {
     const [ definition, setDefinition ] = useState("")
     const [ language, setLanguage ] = useState("EN")
     const [ errorState, setErrorState ] = useState(false)
+    const [ loading, setLoading ] = useState(false)
 
 
     const handleSearch = (event) => {
+        setLoading(true)
         event.preventDefault()
         const searchObject = {
             word: word,
@@ -27,11 +29,13 @@ const Dictionary = () => {
                 setNoResultWord("")
                 setSearchedWord(myWord.name)
                 setDefinition(myWord.definition)
+                setLoading(false)
             }
           ).catch((error) => {
             setNoResultWord(word)
             console.log(error)
             setErrorState(true)
+            setLoading(false)
           })
     }
 
@@ -57,7 +61,7 @@ const Dictionary = () => {
 
             </Appbar>
             <Stack className="main-stack" >
-                <Typography variant="h2" textAlign={"left"}>
+                <Typography variant="h3" textAlign={"left"}>
                     Dictionary
                 </Typography>
                 <form className="form" onSubmit={ handleSearch } >
@@ -87,6 +91,12 @@ const Dictionary = () => {
                     </Stack>
                 </form>
             </Stack>
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={loading}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </div>
     )
 }
