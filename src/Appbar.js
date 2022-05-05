@@ -107,11 +107,11 @@ const Appbar = () => {
                                             </ListItemIcon>
                                             <ListItemText primary="Create tournament" />
                                         </ListItemButton>
-                                        <ListItemButton sx={{ pl: 4 }}>
+                                        <ListItemButton sx={{ pl: 4 }} onClick={() => handleMenuButton("/submit-results")}>
                                             <ListItemIcon>
                                                 <CreateIcon color="primary" />
                                             </ListItemIcon>
-                                            <ListItemText primary="Load results" />
+                                            <ListItemText primary="Submit results" />
                                         </ListItemButton>
                                     </List>
                                 </Collapse>

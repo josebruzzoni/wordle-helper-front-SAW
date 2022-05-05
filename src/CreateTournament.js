@@ -27,7 +27,7 @@ const CreateTournament = () => {
         }else{
           languagesArray[0] = languages === "English" ? "EN" : "ES"
         }
-        if(startDate < endDate){
+        if(startDate <= endDate){
             const tournamentObject = {
                 name: tournamentName,
                 startDate: format(startDate, "yyyy-MM-dd"),
@@ -38,7 +38,8 @@ const CreateTournament = () => {
             console.log(tournamentObject)
             tournamentsService.addTournament(tournamentObject).then(
                 tournament => {
-                  console.log(tournament)}
+                  console.log(tournament)
+                  navigate("/public-tournaments")}
             ).catch((error) => {
               console.log(error)
               setErrorState(true)

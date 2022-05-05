@@ -2,6 +2,7 @@ import axios from 'axios'
 import authService from "./auth"; 
 
 const baseUrl = 'http://localhost:8080/v1/tournaments'
+const usersUrl = 'http://localhost:8080/v1/users'
 
 const getAllPublicTournaments = () => {
     const request = axios.get(baseUrl, {
@@ -19,6 +20,13 @@ const addTournament = (newObject) => {
 
 const getTournament = (id) => {
     const request = axios.get(baseUrl + "/" + id, {
+        headers: authService.getHeaders()
+    })
+    return request.then(response => response.data)
+}
+
+const submitResults = (newObject) => {
+    const request = axios.post(usersUrl + "/" + authService.getUserId() + "/results", newObject, {
         headers: authService.getHeaders()
     })
     return request.then(response => response.data)
@@ -47,6 +55,7 @@ const tournamentsService = {
     addTournament,
     getTournamentLeaderboard,
     joinTournament,
+    submitResults,
   }
 
 export default tournamentsService
