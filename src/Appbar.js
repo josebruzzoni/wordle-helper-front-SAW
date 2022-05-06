@@ -89,7 +89,7 @@ const Appbar = () => {
                                 </ListItem>
                                 <Collapse in={open} timeout="auto" unmountOnExit>
                                     <List component="div" disablePadding>
-                                        <ListItemButton sx={{ pl: 4 }}>
+                                        <ListItemButton sx={{ pl: 4 }} onClick={() => handleMenuButton("/my-tournaments")}>
                                             <ListItemIcon>
                                                 <EqualizerIcon color="primary" />
                                             </ListItemIcon>

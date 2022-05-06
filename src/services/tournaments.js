@@ -11,6 +11,13 @@ const getAllPublicTournaments = () => {
     return request.then(response => response.data)
 }
 
+const getAllTournamentsByUser = () => {
+    const request = axios.get(usersUrl + "/" + authService.getUserId() + "/tournaments", {
+        headers: authService.getHeaders()
+    })
+    return request.then(response => response.data)
+}
+
 const addTournament = (newObject) => {
     const request = axios.post(baseUrl, newObject, {
         headers: authService.getHeaders()
@@ -67,6 +74,7 @@ const tournamentsService = {
     joinTournament,
     submitResults,
     addParticipant,
+    getAllTournamentsByUser,
   }
 
 export default tournamentsService

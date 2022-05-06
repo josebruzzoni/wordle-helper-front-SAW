@@ -10,6 +10,9 @@ const TournamentCard = ({ tournament, onRegisterClick }) => {
   const [expanded, setExpanded] = useState(false)
   const [joined, setJoined] = useState(tournament.participants.includes(sessionStorage.getItem("username")))
 
+  const visibility =  tournament.visibility === "PRIVATE" ? " (Private)" : ""
+  const alreadyStarted = new Date(tournament.startDate) < new Date()
+
   useEffect(() => {
     setJoined(tournament.participants.includes(sessionStorage.getItem("username")))
   }, [tournament.participants])
@@ -26,12 +29,14 @@ const TournamentCard = ({ tournament, onRegisterClick }) => {
     <Card sx={{ minWidth: 660 }}>
       <CardHeader
         action={
-          <Button disabled={joined} variant="contained" aria-label="join" color="primary" onClick={handleJoinClick} endIcon={joined ? <EmojiEventsIcon color="common.grey"/> : <EmojiEventsOutIcon color="white"/>}>
-            <Typography color={joined ? "common.grey" : "common.white"}>{joined ? "Joined" : "Join" }</Typography>
+          <Button disabled={joined || alreadyStarted} 
+            variant="contained" aria-label="join" color="primary" onClick={handleJoinClick} 
+            endIcon={joined || alreadyStarted ? <EmojiEventsIcon color="common.grey"/> : <EmojiEventsOutIcon color="white"/>}>
+            <Typography color={joined || alreadyStarted ? "common.grey" : "common.white"}>{joined ? "Joined" : "Join" }</Typography>
           </Button>
         }
         title={<Link to={"/public-tournaments/" + tournament.id} style={{ textDecoration: "none", color: "#6aaa64" }}>{tournament.name}</Link>}
-        subheader={tournament.startDate + " to " + tournament.endDate}
+        subheader={tournament.startDate + " to " + tournament.endDate + visibility}
       />
       <CardActions>
         {tournament.languages.map(l =>

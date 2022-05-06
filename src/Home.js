@@ -105,7 +105,7 @@ const Home = () => {
                         'aria-labelledby': 'basic-button',
                         }}
                     >
-                        <MenuItem onClick={handleClose}>My tournaments</MenuItem>
+                        <MenuItem onClick={() => handleButton("/my-tournaments")}>My tournaments</MenuItem>
                         <MenuItem onClick={() => handleButton("/public-tournaments")}>Public tournaments</MenuItem>
                         <MenuItem onClick={() => handleButton("/create-tournament")}>Create tournament</MenuItem>
                         <MenuItem onClick={() => handleButton("/submit-results")}>Submit results</MenuItem>

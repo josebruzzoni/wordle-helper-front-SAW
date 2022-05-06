@@ -39,7 +39,7 @@ const CreateTournament = () => {
             tournamentsService.addTournament(tournamentObject).then(
                 tournament => {
                   console.log(tournament)
-                  navigate("/public-tournaments")}
+                  navigate("/my-tournaments")}
             ).catch((error) => {
               console.log(error)
               setErrorState(true)
