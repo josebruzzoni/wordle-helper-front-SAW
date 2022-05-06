@@ -6,12 +6,12 @@ import tournamentsService from "./services/tournaments"
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DesktopDatePicker } from "@mui/x-date-pickers"
-import { format } from "date-fns"
+import { format, addDays } from "date-fns"
 
 const CreateTournament = () => {
     const [ tournamentName, setTournamentName ] = useState("")
-    const [ startDate, setStartDate ] = useState(new Date())
-    const [ endDate, setEndDate ] = useState(new Date())
+    const [ startDate, setStartDate ] = useState(addDays(new Date(), 1))
+    const [ endDate, setEndDate ] = useState(addDays(new Date(), 1))
     const [ visibility, setVisibility ] = useState("Public")
     const [ languages, setLanguages ] = useState("English")
     const [ errorState, setErrorState ] = useState(false)
@@ -83,7 +83,7 @@ const CreateTournament = () => {
                         inputFormat="MM/dd/yyyy"
                         value={startDate}
                         onChange={startDateChange}
-                        minDate={new Date()}
+                        minDate={addDays(new Date(), 1)}
                         renderInput={(params) => <TextField {...params} error={errorState} />}
                       />
                       <DesktopDatePicker
@@ -91,7 +91,7 @@ const CreateTournament = () => {
                         inputFormat="MM/dd/yyyy"
                         value={endDate}
                         onChange={endDateChange}
-                        minDate={new Date()}
+                        minDate={addDays(new Date(), 1)}
                         renderInput={(params) => <TextField {...params} error={errorState} helperText={errorState ? "Please check selected dates" : ""}/>}
                       />
                       <FormControl>

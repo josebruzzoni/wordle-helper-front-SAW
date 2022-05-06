@@ -1,38 +1,25 @@
-import { Backdrop, Button, Card, CardActions, CardContent, CardHeader, Chip, CircularProgress, Collapse, IconButton, Typography } from "@mui/material"
-import { useState } from "react";
+import { Button, Card, CardActions, CardContent, CardHeader, Chip, Collapse, IconButton, Typography } from "@mui/material"
+import { useEffect, useState } from "react";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import styled from "@emotion/styled";
 import EmojiEventsOutIcon from '@mui/icons-material/EmojiEventsOutlined';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import { Link } from "react-router-dom";
-import tournamentsService from "./services/tournaments";
 
-const TournamentCard = ({ tournament }) => {
+const TournamentCard = ({ tournament, onRegisterClick }) => {
   const [expanded, setExpanded] = useState(false)
   const [joined, setJoined] = useState(tournament.participants.includes(sessionStorage.getItem("username")))
-  const [loading, setLoading] = useState(false)
-  const [isOwner, setIsOwner] = useState(sessionStorage.getItem("username") === tournament.owner)
+
+  useEffect(() => {
+    setJoined(tournament.participants.includes(sessionStorage.getItem("username")))
+  }, [tournament.participants])
 
   const handleExpandClick = () => {
     setExpanded(!expanded)
   }
 
   const handleJoinClick = () => {
-    setLoading(true)
-    if(joined){
-      setLoading(false)
-    }else{
-      tournamentsService
-      .joinTournament(tournament.id)
-      .then( response => {
-        setJoined(!joined)
-        setLoading(false)
-      }
-      ).catch((error) => {
-            setLoading(false)
-          })
-    }
-    
+    onRegisterClick(tournament.id)
   }
 
   return (
@@ -40,7 +27,7 @@ const TournamentCard = ({ tournament }) => {
       <CardHeader
         action={
           <Button disabled={joined} variant="contained" aria-label="join" color="primary" onClick={handleJoinClick} endIcon={joined ? <EmojiEventsIcon color="common.grey"/> : <EmojiEventsOutIcon color="white"/>}>
-            <Typography color={joined ? "common.grey" : "common.white"}>{isOwner ? "Add participant" : (joined ? "Joined" : "Join" )}</Typography>
+            <Typography color={joined ? "common.grey" : "common.white"}>{joined ? "Joined" : "Join" }</Typography>
           </Button>
         }
         title={<Link to={"/public-tournaments/" + tournament.id} style={{ textDecoration: "none", color: "#6aaa64" }}>{tournament.name}</Link>}
@@ -65,12 +52,6 @@ const TournamentCard = ({ tournament }) => {
           <Typography>Participants:{tournament.participants.map(p => " " + p)}</Typography>
         </CardContent>
       </Collapse>
-      <Backdrop
-                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                open={loading}
-            >
-                <CircularProgress color="inherit" />
-      </Backdrop>
     </Card>
   )
 }
