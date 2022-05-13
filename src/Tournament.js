@@ -80,7 +80,7 @@ const Tournament = () => {
                     Leaderboard
                 </Typography>
                 {tournament ? <TournamentCard tournament={tournament} onRegisterClick={handleJoinClick}></TournamentCard> : <div />}
-                {isOwner ? <form onSubmit={ handleAdd } style={{maxWidth: 660, background: "#ffffff", padding: "10px"}}>
+                {isOwner && !(new Date(tournament.startDate) < new Date()) ? <form onSubmit={ handleAdd } style={{maxWidth: 660, background: "#ffffff", padding: "10px"}}>
                     <Stack spacing={1} direction="row"  alignItems={"center"}>
                       <TextField variant="standard" label="Participant username" onChange={ participantChange } 
                         value={ participant } required={true} error={errorState} helperText={errorState ? "Invalid username" : ""}/>
@@ -92,7 +92,7 @@ const Tournament = () => {
                         {
                             id: i + 1,
                             userName: u.user.username,
-                            score: u.badScore
+                            score: u.score
                         }
                     ))} columns={columns}/>
                 </div>

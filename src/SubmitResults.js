@@ -16,7 +16,7 @@ const SubmitResults = () => {
       setLoading(true)
       event.preventDefault()
       const resultsObject = {
-        failedAttempts: attempts,
+        attempts: attempts,
         language: language === "English" ? "EN" : "ES",
       }
       tournamentsService.submitResults(resultsObject).then(
