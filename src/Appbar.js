@@ -74,7 +74,7 @@ const Appbar = () => {
                             role="presentation"
                             onKeyDown={toggleDrawer(false)}>
                             <List subheader={<ListSubheader>Hi, {sessionStorage.getItem("username")}</ListSubheader>}>
-                                <ListItem button key="Helper">
+                                <ListItem button key="Helper" onClick={() => handleMenuButton("/helper")}>
                                     <ListItemIcon><EmojiObjectsIcon color="primary" /></ListItemIcon>
                                     <ListItemText primary="Helper" />
                                 </ListItem>
