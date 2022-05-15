@@ -24,7 +24,7 @@ const Helper = () => {
         setLoading(true)
         const greyLetters = getGreyLetters(grid)
         console.log(greyLetters)
-        helperService.searchPossibleWords(language === "English" ? "EN" : "ES", grid).then(
+        helperService.searchPossibleWords(language === "English" ? "EN" : "ES", grid[attempts-1]).then(
             words => {
                 console.log(words)
                 errorChange(false)
