@@ -1,12 +1,14 @@
-import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Stack, Typography, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Backdrop, CircularProgress, MenuItem, Select, InputLabel } from "@mui/material"
+import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Stack, Typography, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Backdrop, CircularProgress, MenuItem, Select, InputLabel, IconButton } from "@mui/material"
 import { useState } from "react"
 import Appbar from "./Appbar"
 import HelperGrid from "./HelperGrid"
 import helperService from "./services/helper"
+import HelpIcon from '@mui/icons-material/HelpOutline';
 
 const Helper = () => {
-    const [ language, setLanguage ] = useState("English")
+    const [ language, setLanguage ] = useState("EN")
     const [ openResults, setOpenResults ] = useState(false)
+    const [ openHelp, setOpenHelp ] = useState(false)
     const [ possibleWords, setPossibleWords ] = useState([])
     const [ loading, setLoading ] = useState(false)
     const [ attempts, setAttemtps ] = useState(1)
@@ -20,11 +22,13 @@ const Helper = () => {
         setOpenResults(open)
     }
 
+    const handleHelpAlert = (open) => {
+        setOpenHelp(open)
+    }
+
     const handleSubmit = (grid) => {
         setLoading(true)
-        const greyLetters = getGreyLetters(grid)
-        console.log(greyLetters)
-        helperService.searchPossibleWords(language === "English" ? "EN" : "ES", grid[attempts-1]).then(
+        helperService.searchPossibleWords(language, grid).then(
             words => {
                 console.log(words)
                 errorChange(false)
@@ -36,22 +40,6 @@ const Helper = () => {
             console.log(error)
             setLoading(false)
           })
-    }
-
-    const getGreyLetters = (grid) => {
-        const greyLetters = []
-        grid.forEach(word => {
-            if(word.letters !== ""){
-                const letterColors = word.colors.split("")
-                const chars = word.letters.split("")
-                letterColors.forEach((letterColor, index) => {
-                    if(letterColor === "n" && !greyLetters.includes(chars[index])){
-                        greyLetters.push(chars[index])
-                    }
-                })
-            }
-        })
-        return greyLetters.join("")
     }
 
     const errorChange = (error) => {
@@ -66,9 +54,14 @@ const Helper = () => {
         <div>
             <Appbar/>
             <Stack className="main-stack" textAlign={"left"} spacing={1}>
-                <Typography variant="h3">
-                    Helper
-                </Typography>
+                <Stack direction="row">
+                    <Typography variant="h3">
+                        Helper
+                    </Typography>
+                    <IconButton color="primary" aria-label="help" onClick={() => handleHelpAlert(true)}>
+                        <HelpIcon color="primary"/>
+                    </IconButton>
+                </Stack>
                 <form style={{maxWidth: 660, background: "#ffffff", padding: "10px"}}>
                     <Stack spacing={1}>
                         <FormControl>
@@ -96,8 +89,8 @@ const Helper = () => {
                             name="language-radio-buttons-group"
                             onChange={languageChange}
                         >
-                            <FormControlLabel value="English" control={<Radio />} label="English" />
-                            <FormControlLabel value="Spanish" control={<Radio />} label="Spanish" />
+                            <FormControlLabel value="EN" control={<Radio />} label="English" />
+                            <FormControlLabel value="ES" control={<Radio />} label="Spanish" />
                         </RadioGroup>
                         </FormControl>
                         <HelperGrid onSubmitHandler={handleSubmit} attempts={attempts} onError={errorChange}/>
@@ -120,6 +113,34 @@ const Helper = () => {
                     </DialogContent>
                     <DialogActions>
                             <Button onClick={() => handleResultsAlert(false)}>Close</Button>
+                    </DialogActions>
+                </Dialog>
+                <Dialog
+                    open={openHelp}
+                    onClose={() => handleHelpAlert(false)}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">{language === "EN" ? "How to use" : "Como usar"}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            {language === "EN" ?
+                            <Typography textAlign={"left"}>
+                                <p>1. Select the number of attempts you did</p>
+                                <p>2. Write each word you tried</p>
+                                <p>3. Click through the buttons to select right color for each character</p>
+                            </Typography>
+                            :
+                            <Typography textAlign={"left"}>
+                                <p>1. Seleccioná la cantidad de intentos que realizaste</p>
+                                <p>2. Escribí cada palabra</p>
+                                <p>3. Clickeá los botones para seleccionar el color correcto de cada letra</p>
+                            </Typography>
+                            }
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                            <Button onClick={() => handleHelpAlert(false)}>Close</Button>
                     </DialogActions>
                 </Dialog>
             </Stack>
