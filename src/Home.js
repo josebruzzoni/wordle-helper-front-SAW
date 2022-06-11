@@ -81,7 +81,7 @@ const Home = () => {
                     </Card>
                 </Stack>
                 <Stack spacing={2} direction="row" justifyContent="center">
-                    <Fab variant="extended" color="primary">
+                    <Fab variant="extended" color="primary" onClick={() => handleButton("/helper")}>
                         <EmojiObjectsIcon sx={{ mr: 1 }} color="white" />
                         <Typography color="common.white">Helper</Typography>
                     </Fab>
