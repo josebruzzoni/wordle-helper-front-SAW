@@ -3,11 +3,12 @@ import authService from "./auth";
 
 const baseUrl = 'http://localhost:8080/v1/helper'
 
-const searchPossibleWords = (language, grid) => {
+const searchPossibleWords = (language, grid, attempts) => {
     const greyLetters = []
     const yellowLetters = []
     const greenLetters = ["_", "_", "_", "_", "_"]
-    grid.forEach(word => {
+    for(let i = 0; i < attempts; i++ ){
+        const word = grid[i]
         const letterColors = word.colors.split("")
         const chars = word.letters.split("")
         letterColors.forEach((letterColor, index) => {
@@ -23,7 +24,6 @@ const searchPossibleWords = (language, grid) => {
             }
         })
     }
-    )
     
     const url = baseUrl + "/words?language=" + language + "&grey=" + greyLetters.join("") + "&yellow=" + yellowLetters.join("") + "&green=" + greenLetters.join("")
     const request = axios.get(url, {

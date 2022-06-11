@@ -28,7 +28,7 @@ const Helper = () => {
 
     const handleSubmit = (grid) => {
         setLoading(true)
-        helperService.searchPossibleWords(language, grid).then(
+        helperService.searchPossibleWords(language, grid, attempts).then(
             words => {
                 console.log(words)
                 errorChange(false)
