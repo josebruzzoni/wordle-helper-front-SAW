@@ -9,6 +9,7 @@ const Login = () => {
   const [ username, setUsername ] = useState("")
   const [ password, setPassword ] = useState("")
   const [ errorState, setErrorState ] = useState(false)
+  const [ usernameErrorState, setUsernameErrorState ] = useState(false)
 
   const navigate = useNavigate()
   
@@ -25,7 +26,13 @@ const Login = () => {
         navigate("/home")}
     ).catch((error) => {
       console.log(error)
-      setErrorState(true)
+      if(error.response.status == 400){
+        setUsernameErrorState(false)
+        setErrorState(true)
+      }else {
+        setErrorState(false)
+        setUsernameErrorState(true)
+      }
     })
   }
 
@@ -42,9 +49,9 @@ const Login = () => {
         <Logo />
         <form className="form" onSubmit={ handleLogin } >
             <TextField variant="standard" label="Username" onChange={ usernameChange } 
-              value={ username } required={true} error={ errorState } />
+              value={ username } required={true} error={ errorState || usernameErrorState } />
             <TextField variant="standard" type="password" label="Password" onChange={ passwordChange } 
-              value={ password } required={true} error={ errorState } helperText={errorState ? "Username or password invalid" : ""}/>
+              value={ password } required={true} error={ errorState || usernameErrorState } helperText={errorState ? "Password invalid" : (usernameErrorState ? "Username not found" : "")}/>
             <Button variant="contained" color="primary" className="loginButton" type="submit" >Log in</Button>
         </form>
         <Stack direction={"row"} spacing={1}>

@@ -20,6 +20,7 @@ import CreateTournament from './CreateTournament';
 import SubmitResults from './SubmitResults';
 import MyTournaments from './MyTournaments';
 import Helper from './Helper';
+import Admin from './Admin';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <ThemeProvider theme={customTheme}>
@@ -27,6 +28,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Routes>
                 <Route path="/" element={<Navigate to="/login" />} />
                 <Route path="/dictionary" element={<PrivateRoute><Dictionary /></PrivateRoute>} />
+                <Route path="/admin" element={<PrivateRoute><Admin /></PrivateRoute>} />
                 <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
                 <Route path="/public-tournaments" element={<PrivateRoute><PublicTournaments /></PrivateRoute>} />
                 <Route path="/my-tournaments" element={<PrivateRoute><MyTournaments /></PrivateRoute>} />
