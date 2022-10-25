@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Backdrop, Button, CircularProgress, Fab, Stack, TextField, Typography } from '@mui/material';
+import { Backdrop, Button, CircularProgress, Stack, TextField, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import Appbar from "./Appbar";
 import authService from "./services/auth"; 
@@ -21,14 +21,11 @@ const Admin = () => {
                 setTable(response)
                 console.log(response)
             })
-    }, [])
+    }, [definition, loading])
 
     const handleSearch = (event) => {
         setLoading(true)
         event.preventDefault()
-        const adminString = {
-            word: word,
-        }
         console.log(authService.getHeaders())
         adminService.admin(word).then(
             aString => {
