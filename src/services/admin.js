@@ -10,8 +10,15 @@ const admin = adminString => {
     return request.then(response => response.data)
 }
 
+const getAdmin = () => {
+    const request = axios.get(baseUrl, {
+        headers: authService.getHeaders()
+    })
+    return request.then(response => response.data)
+}
+
 const adminService = {
-    admin,
+    admin, getAdmin,
   }
 
 export default adminService
